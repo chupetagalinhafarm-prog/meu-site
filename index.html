@@ -29,10 +29,11 @@
                 try {
                     const resposta = await fetch("https://api.ipify.org?format=json");
                     const dados = await resposta.json();
-
-                    resultado.textContent = "Senha incorreta! IP hackeado: " + dados.ip;
-                } catch {
-                    resultado.textContent = "Senha incorreta, mas não foi possível consultar o IP.";
+                
+                    resultado.textContent = "Senha incorreta! IP: " + dados.ip;
+                } catch (erro) {
+                    console.error(erro);
+                    resultado.textContent = "Não foi possível consultar o IP.";
                 }
             }
         }
