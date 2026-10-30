@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <link rel="stylesheet", href="style.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verificação de senha</title>
+
+</head>
+<body>
+    <h2>Digite sua senha</h2>
+
+    <input type="password" id="senha" class="senha" placeholder="Digite a senha">
+
+    <button class="botao" onclick="verificarSenha()">Verificar</button>
+
+    <p id="resultado"></p>
+
+    <script>
+        async function verificarSenha() {
+            const senha = document.getElementById("senha").value;
+            const resultado = document.getElementById("resultado");
+
+            if (senha === "10010") {
+                resultado.textContent = "Senha correta!";
+            } else {
+                resultado.textContent = "Senha incorreta. Hackeando IP...";
+
+                try {
+                    const resposta = await fetch("https://api.ipify.org?format=json");
+                    const dados = await resposta.json();
+
+                    resultado.textContent = "Senha incorreta! IP hackeado: " + dados.ip;
+                } catch {
+                    resultado.textContent = "Senha incorreta, mas não foi possível consultar o IP.";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
